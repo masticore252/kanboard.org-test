@@ -8,7 +8,13 @@ use Kanboard\Core\Security\Token;
 use Kanboard\Core\Security\Role;
 use PDO;
 
-const VERSION = 125;
+const VERSION = 126;
+
+function version_126(PDO $pdo)
+{
+    $pdo->exec('ALTER TABLE tasks ADD COLUMN `power_source` TINYINT(1) DEFAULT 1 NOT NULL');
+    $pdo->exec('ALTER TABLE tasks ADD COLUMN `story_points` TINYINT(1) DEFAULT 1 NOT NULL');
+}
 
 function version_125(PDO $pdo)
 {
