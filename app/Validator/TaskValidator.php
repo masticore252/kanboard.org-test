@@ -49,6 +49,7 @@ class TaskValidator extends BaseValidator
             new Validators\Numeric('time_spent', t('This value must be numeric')),
             new Validators\Numeric('time_estimated', t('This value must be numeric')),
             new Validators\Numeric('story_points', t('The Story points amount has to be a numeric value')),
+            new Validators\GreaterThan('story_points', t('The task should have at least one story point'), 0),
             new Validators\InArray('power_source', array_keys($powerSources), t('You must Select a PowerSource from the list')),
         );
     }
