@@ -1,18 +1,55 @@
-version: '2'
-services:
-  kanboard:
-    image: kanboard/kanboard:latest
-    ports:
-     - "80:80"
-     - "443:443"
-    volumes:
-     - kanboard_data:/var/www/app/data
-     - kanboard_plugins:/var/www/app/plugins
-     - kanboard_ssl:/etc/nginx/ssl
+version: '3.5'
+
 volumes:
-  kanboard_data:
+  database_data:
     driver: local
-  kanboard_plugins:
-    driver: local
-  kanboard_ssl:
-    driver: local
+
+services:
+  php:
+    build:
+      context: ./docker-files
+    volumes:
+      - type: bind
+        source: "."
+        target: "/var/www/html"
+    environment:
+      DB_DRIVER: mysql
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_HOSTNAME: mysql
+      DB_PORT: 3306
+      DB_NAME: kanboard
+      DEBUG: 1
+      DB_RUN_MIGRATIONS: 0
+  nginx:
+    image: nginx:1.19
+    ports:
+      - 8000:80
+    volumes:
+      - ./docker-files/nginx-site.conf:/etc/nginx/conf.d/default.conf
+      - type: bind
+        source: "./"
+        target: "/var/www/html"
+    depends_on:
+      - php
+      - mysql
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3309:3306"
+    volumes:
+      - database_data:/var/lib/mysql
+      # - type: bind
+      #   source: "./pdpdb.sql"
+      #   target: "/root/pdpdb.sql"
+    restart: unless-stopped
+    tty: true
+    environment:
+      MYSQL_DATABASE: kanboard
+      MYSQL_USER: kanboard
+      MYSQL_PASSWORD: kanboard-secret
+      MYSQL_ROOT_PASSWORD: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+
+
