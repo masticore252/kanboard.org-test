@@ -21,6 +21,8 @@ class TaskValidator extends BaseValidator
      */
     private function commonValidationRules()
     {
+        $powerSources = $this->helper->task->getPowerSources();
+
         return array(
             new Validators\Integer('id', t('This value must be an integer')),
             new Validators\Integer('project_id', t('This value must be an integer')),
@@ -46,6 +48,8 @@ class TaskValidator extends BaseValidator
             new Validators\Date('date_started', t('Invalid date'), $this->dateParser->getParserFormats()),
             new Validators\Numeric('time_spent', t('This value must be numeric')),
             new Validators\Numeric('time_estimated', t('This value must be numeric')),
+            new Validators\Numeric('story_points', t('The Story points amount has to be a numeric value')),
+            new Validators\InArray('power_source', array_keys($powerSources), t('You must Select a PowerSource from the list')),
         );
     }
 
