@@ -21,6 +21,8 @@
             <?= $this->task->renderSwimlaneField($swimlanes_list, $values, $errors) ?>
             <?= $this->task->renderColumnField($columns_list, $values, $errors) ?>
             <?= $this->task->renderPriorityField($project, $values) ?>
+            <?= $this->task->renderPowerSourceField($values, $errors) ?>
+            <?= $this->task->renderStoryPointsField($values, $errors) ?>
 
             <?= $this->hook->render('template:task:form:second-column', array('values' => $values, 'errors' => $errors)) ?>
         </div>
@@ -32,7 +34,6 @@
             <?= $this->task->renderTimeSpentField($values, $errors) ?>
             <?= $this->task->renderScoreField($values, $errors) ?>
             <?= $this->task->renderReferenceField($values, $errors) ?>
-
             <?= $this->hook->render('template:task:form:third-column', array('values' => $values, 'errors' => $errors)) ?>
         </div>
 

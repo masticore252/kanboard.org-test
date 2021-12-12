@@ -201,6 +201,29 @@ class TaskHelper extends Base
         return $html;
     }
 
+    public function renderPowerSourceField(array $values, array $errors = [], array $attributes = [])
+    {
+        // TO DO: get options from the database
+        $options = [ t('A/C'), t('Battery'), t('Nuclear'), ];
+
+        $html = '';
+        $html .= $this->helper->form->label(t('Power Source'), 'power_source');
+        $html .= $this->helper->form->select('power_source', $options, $values, $errors, $attributes);
+
+        return $html;
+    }
+
+    public function renderStoryPointsField(array $values, array $errors = [], array $attributes = [])
+    {
+        $attributes[] = 'min="1"';
+
+        $html = '';
+        $html .= $this->helper->form->label(t('Story Points'), 'story_points');
+        $html .= $this->helper->form->number('story_points', $values, $errors, $attributes);
+
+        return $html;
+    }
+
     public function renderTimeEstimatedField(array $values, array $errors = array(), array $attributes = array())
     {
         $attributes = array_merge(array('tabindex="12"'), $attributes);
