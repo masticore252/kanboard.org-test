@@ -30,6 +30,10 @@
                             <strong><?= t('Complexity:') ?></strong> <span><?= $this->text->e($task['score']) ?></span>
                         </li>
                     <?php endif ?>
+                    <li>
+                        <strong><?= t('Story Points:') ?></strong>
+                        <span><?= $task['story_points'] ?></span>
+                    </li>
                     <?php if ($project['is_public']): ?>
                     <li>
                         <small>
@@ -69,6 +73,10 @@
                     <li>
                         <strong><?= t('Position:') ?></strong>
                         <span><?= $task['position'] ?></span>
+                    </li>
+                    <li>
+                        <strong><?= t('Power Source:') ?></strong>
+                        <span><?= $task['power_source'] ?></span>
                     </li>
 
                     <?= $this->hook->render('template:task:details:second-column', array('task' => $task)) ?>
