@@ -12,7 +12,7 @@ const VERSION = 126;
 
 function version_126(PDO $pdo)
 {
-    $pdo->exec('ALTER TABLE tasks ADD COLUMN `power_source` TINYINT(1) DEFAULT 1 NOT NULL');
+    $pdo->exec('ALTER TABLE tasks ADD COLUMN `power_source` TEXT CHECK( power_source IN ("ac", "battery", "nuclear") ) DEFAULT "ac" NOT NULL');
     $pdo->exec('ALTER TABLE tasks ADD COLUMN `story_points` TINYINT(1) DEFAULT 1 NOT NULL');
 }
 

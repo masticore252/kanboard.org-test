@@ -203,8 +203,7 @@ class TaskHelper extends Base
 
     public function renderPowerSourceField(array $values, array $errors = [], array $attributes = [])
     {
-        // TO DO: get options from the database
-        $options = [ t('A/C'), t('Battery'), t('Nuclear'), ];
+        $options = $this->getPowerSources();
 
         $html = '';
         $html .= $this->helper->form->label(t('Power Source'), 'power_source');
@@ -344,5 +343,10 @@ class TaskHelper extends Base
         $html .= '</div>';
 
         return $html;
+    }
+
+    public function getPowerSources(): array
+    {
+        return [ 'ac' => t('A/C'), 'battery' => t('Battery'), 'nuclear' => t('Nuclear'), ];
     }
 }
